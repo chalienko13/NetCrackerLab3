@@ -1,48 +1,19 @@
 package com.chalienko.hr.model;
 
 /**
- * Created by Chalienko on 09-Dec-15.
+ * Created by Chalienko on 01.02.2016.
  */
-public class Manager extends Model {
+public interface Manager extends Model {
 
-    private static final long serialVersionUID = 9105111485873801110L;
+    Project getProject();
 
-    private String firstName;
+    void setProject(Project project);
 
-    private String lastName;
+    String getFirstName();
 
-    private Project project;
+    void setFirstName(String firstName);
 
-    public Manager() {
-        super();
-    }
+    String getLastName();
 
-    public Manager(Long id){
-        super(id);
-    }
-
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
+    void setLastName(String lastName);
 }

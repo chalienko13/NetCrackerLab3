@@ -2,6 +2,7 @@ package com.chalienko.hr.dao.impl.oracle;
 
 import com.chalienko.hr.dao.EmployeeDao;
 import com.chalienko.hr.model.Employee;
+import com.chalienko.hr.model.impl.real.RealEmployee;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,7 +33,7 @@ public class OracleEmployeeDao implements EmployeeDao {
         preparedStatement.setLong(1,key);
         ResultSet rs = preparedStatement.executeQuery();
         rs.next();
-        Employee employee = new Employee();
+        Employee employee = new RealEmployee();
         employee.setId(rs.getLong("ID"));
         employee.setFirstName(rs.getString("FIRST_NAME"));
         employee.setLastName(rs.getString("LAST_NAME"));
@@ -64,7 +65,7 @@ public class OracleEmployeeDao implements EmployeeDao {
         ResultSet rs = preparedStatement.executeQuery();
         List<Employee> list = new ArrayList<>();
         while (rs.next()){
-            Employee employee = new Employee();
+            Employee employee = new RealEmployee();
             employee.setId(rs.getLong("ID"));
             employee.setFirstName(rs.getString("FIRST_NAME"));
             employee.setLastName(rs.getString("LAST_NAME"));

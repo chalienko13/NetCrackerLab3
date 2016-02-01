@@ -1,8 +1,10 @@
 package com.chalienko.hr.dao.impl.oracle;
 
 import com.chalienko.hr.dao.ManagerDao;
-import com.chalienko.hr.model.Employee;
 import com.chalienko.hr.model.Manager;
+import com.chalienko.hr.model.impl.proxy.ProxyManager;
+import com.chalienko.hr.model.impl.proxy.ProxyProject;
+import com.chalienko.hr.model.impl.real.RealManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,20 +35,22 @@ public class OracleManagerDao implements ManagerDao {
         preparedStatement.setLong(1,key);
         ResultSet rs = preparedStatement.executeQuery();
         rs.next();
-        Manager manager = new Manager();
+        Manager manager = new RealManager();
         manager.setId(rs.getLong("ID"));
         manager.setFirstName(rs.getString("FIRST_NAME"));
         manager.setLastName(rs.getString("LAST_NAME"));
+        manager.setProject(new ProxyProject(rs.getLong("ID_PROJECT")));
         return manager;
     }
 
     @Override
     public int update(Manager manager) throws SQLException {
-        String sql = "UPDATE C##CHAL.MANAGER SET FIRST_NAME = ?, LAST_NAME = ?  WHERE ID = ?";
+        String sql = "UPDATE C##CHAL.MANAGER SET FIRST_NAME = ?, LAST_NAME = ?, ID_PROJECT = ?  WHERE ID = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1,manager.getFirstName());
         preparedStatement.setString(2,manager.getLastName());
-        preparedStatement.setLong(3, manager.getId());
+        preparedStatement.setLong(3, manager.getProject().getId());
+        preparedStatement.setLong(4, manager.getId());
         return preparedStatement.executeUpdate();
     }
 
@@ -65,10 +69,11 @@ public class OracleManagerDao implements ManagerDao {
         ResultSet rs = preparedStatement.executeQuery();
         List<Manager> list = new ArrayList<>();
         while (rs.next()){
-            Manager manager = new Manager();
+            Manager manager = new RealManager();
             manager.setId(rs.getLong("ID"));
             manager.setFirstName(rs.getString("FIRST_NAME"));
             manager.setLastName(rs.getString("LAST_NAME"));
+            manager.setProject(new ProxyProject(rs.getLong("ID_PROJECT")));
             list.add(manager);
         }
         return list;

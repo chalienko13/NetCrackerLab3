@@ -5,25 +5,26 @@ package com.chalienko.hr.dao;
  */
 
 import com.chalienko.hr.model.Customer;
+import com.chalienko.hr.model.impl.real.RealCustomer;
 
 import java.sql.SQLException;
 import java.util.List;
 
 /**
- * The object for managing persistent state of the Customer object
+ * The object for managing persistent state of the RealCustomer object
  */
 public interface CustomerDao {
 
     /**
      * It creates a new record and the corresponding object
-     * @return Customer
+     * @return RealCustomer
      */
     Customer create();
 
     /**
      * Gets the appropriate entries to the primary by key or null
      * @param key
-     * @return Customer
+     * @return RealCustomer
      */
     Customer read(Long key) throws SQLException;
 

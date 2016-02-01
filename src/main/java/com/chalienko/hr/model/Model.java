@@ -5,24 +5,11 @@ import java.io.Serializable;
 /**
  * Created by Chalienko on 29.01.2016.
  */
-public abstract class Model implements Serializable {
+public interface  Model extends Serializable {
 
-    private static final long serialVersionUID = -5743090912999199238L;
+    static final long serialVersionUID = -5743090912999199238L;
 
-    private Long id;
+    public Long getId();
 
-    public Model() {
-    }
-
-    public Model(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id);
 }

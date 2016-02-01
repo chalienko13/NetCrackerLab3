@@ -3,57 +3,22 @@ package com.chalienko.hr.model;
 import java.util.List;
 
 /**
- * Created by Chalienko on 09-Dec-15.
+ * Created by Chalienko on 01.02.2016.
  */
-public class Project extends Model {
+public interface Project  extends Model {
+    List<Employee> getEmployees();
 
-    private static final long serialVersionUID = -5809112583788445522L;
+    void setEmployees(List<Employee> employees);
 
-    private Customer customer;
+    Customer getCustomer();
 
-    private Manager manager;
+    void setCustomer(Customer customer);
 
-    private String projectName;
+    Manager getManager();
 
-    private List<Employee> employees;
+    void setManager(Manager manager);
 
-    public Project() {
-        super();
-    }
+    String getProjectName();
 
-    public Project(Long id) {
-        super(id);
-    }
-
-    public List<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public Manager getManager() {
-        return manager;
-    }
-
-    public void setManager(Manager manager) {
-        this.manager = manager;
-    }
-
-    public String getProjectName() {
-        return projectName;
-    }
-
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
-    }
+    void setProjectName(String projectName);
 }

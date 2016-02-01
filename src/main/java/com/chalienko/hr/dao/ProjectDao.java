@@ -10,19 +10,19 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * The object for managing persistent state of the Project object
+ * The object for managing persistent state of the RealProject object
  */
 public interface ProjectDao {
     /**
      * It creates a new record and the corresponding object
-     * @return Project
+     * @return RealProject
      */
     Project create();
 
     /**
      * Gets the appropriate entries to the primary by key or null
      * @param key
-     * @return Project
+     * @return RealProject
      */
     Project read(Long key) throws SQLException;
 

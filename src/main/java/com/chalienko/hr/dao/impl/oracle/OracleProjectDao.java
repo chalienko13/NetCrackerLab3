@@ -2,6 +2,9 @@ package com.chalienko.hr.dao.impl.oracle;
 
 import com.chalienko.hr.dao.ProjectDao;
 import com.chalienko.hr.model.Project;
+import com.chalienko.hr.model.impl.proxy.ProxyCustomer;
+import com.chalienko.hr.model.impl.proxy.ProxyManager;
+import com.chalienko.hr.model.impl.real.RealProject;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,18 +35,22 @@ public class OracleProjectDao implements ProjectDao {
         preparedStatement.setLong(1,key);
         ResultSet rs = preparedStatement.executeQuery();
         rs.next();
-        Project project = new Project();
+        Project project = new RealProject();
         project.setId(rs.getLong("ID"));
         project.setProjectName(rs.getString("PROJECT_NAME"));
+        project.setManager(new ProxyManager(rs.getLong("ID_MANAGER")));
+        project.setCustomer(new ProxyCustomer(rs.getLong("ID_CUSTOMER")));
         return project;
     }
 
     @Override
     public int update(Project project) throws SQLException {
-        String sql = "UPDATE C##CHAL.Project SET PROJECT_NAME = ?  WHERE ID = ?";
+        String sql = "UPDATE C##CHAL.Project SET PROJECT_NAME = ?, ID_CUSTOMER = ?, ID_MANAGER = ?  WHERE ID = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1,project.getProjectName());
-        preparedStatement.setLong(2, project.getId());
+        preparedStatement.setString(1, project.getProjectName());
+        preparedStatement.setLong(2, project.getCustomer().getId());
+        preparedStatement.setLong(3, project.getManager().getId());
+        preparedStatement.setLong(4, project.getId());
         return preparedStatement.executeUpdate();
     }
 
@@ -51,7 +58,7 @@ public class OracleProjectDao implements ProjectDao {
     public void delete(Project project) throws SQLException {
         String sql = "DELETE FROM C##CHAL.Project WHERE ID = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setLong(1,project.getId());
+        preparedStatement.setLong(1, project.getId());
         preparedStatement.execute();
     }
 
@@ -62,9 +69,11 @@ public class OracleProjectDao implements ProjectDao {
         ResultSet rs = preparedStatement.executeQuery();
         List<Project> list = new ArrayList<>();
         while (rs.next()){
-            Project project = new Project();
+            Project project = new RealProject();
             project.setId(rs.getLong("ID"));
             project.setProjectName(rs.getString("PROJECT_NAME"));
+            project.setManager(new ProxyManager(rs.getLong("ID_MANAGER")));
+            project.setCustomer(new ProxyCustomer(rs.getLong("ID_CUSTOMER")));
             list.add(project);
         }
         return list;
