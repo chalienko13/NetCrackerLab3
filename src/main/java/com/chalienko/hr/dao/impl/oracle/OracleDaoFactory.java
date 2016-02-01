@@ -35,22 +35,22 @@ public class OracleDaoFactory implements DaoFactory {
     }
 
     @Override
-    public ManagerDao getManagerDao(Connection connection) {
-        return new OracleManagerDao(connection);
+    public ManagerDao getManagerDao(Connection connection) throws SQLException {
+        return new OracleManagerDao(getConnection());
     }
 
     @Override
-    public ProjectDao getProjectDao(Connection connection) {
-        return new OracleProjectDao(connection);
+    public ProjectDao getProjectDao(Connection connection) throws SQLException {
+        return new OracleProjectDao(getConnection());
     }
 
     @Override
-    public CustomerDao getCustomDao(Connection connection) {
-        return new OracleCustomerDao(connection);
+    public CustomerDao getCustomDao(Connection connection) throws SQLException {
+        return new OracleCustomerDao(getConnection());
     }
 
     @Override
-    public EmployeeDao getEmployeeDao(Connection connection) {
-        return new OracleEmployeeDao(connection);
+    public EmployeeDao getEmployeeDao(Connection connection) throws SQLException {
+        return new OracleEmployeeDao(getConnection());
     }
 }
