@@ -20,27 +20,27 @@ public interface DaoFactory {
      * @param connection
      * @return ManagersDao
      */
-    ManagerDao getManagerDao(Connection connection);
+    ManagerDao getManagerDao(Connection connection) throws SQLException;
 
     /**
      * Gets the object for the persistent state of the object management Projects
      * @param connection
      * @return ProjectsDao
      */
-    ProjectDao getProjectDao(Connection connection);
+    ProjectDao getProjectDao(Connection connection) throws SQLException;
 
     /**
      * Gets the object for the persistent state of the object management Customs
      * @param connection
      * @return
      */
-    CustomerDao getCustomDao(Connection connection);
+    CustomerDao getCustomDao(Connection connection) throws SQLException;
 
     /**
      * Gets the object for the persistent state of the object management Employees
      * @param connection
      * @return EmployeeDao
      */
-    EmployeeDao getEmployeeDao(Connection connection);
+    EmployeeDao getEmployeeDao(Connection connection) throws SQLException;
 
 }
