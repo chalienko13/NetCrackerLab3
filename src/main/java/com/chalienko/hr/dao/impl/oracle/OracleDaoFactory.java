@@ -53,4 +53,8 @@ public class OracleDaoFactory implements DaoFactory {
     public EmployeeDao getEmployeeDao() throws SQLException {
         return new OracleEmployeeDao(getConnection());
     }
+
+    public void closeConnection() throws SQLException {
+        getConnection().close();
+    }
 }

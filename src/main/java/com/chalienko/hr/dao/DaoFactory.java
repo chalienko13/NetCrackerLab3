@@ -39,4 +39,6 @@ public interface DaoFactory {
      */
     EmployeeDao getEmployeeDao() throws SQLException;
 
+    void closeConnection() throws SQLException;
+
 }
