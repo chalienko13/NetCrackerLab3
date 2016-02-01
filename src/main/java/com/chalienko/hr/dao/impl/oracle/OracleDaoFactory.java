@@ -36,12 +36,12 @@ public class OracleDaoFactory implements DaoFactory {
 
     @Override
     public ManagerDao getManagerDao(Connection connection) {
-        return null;
+        return new OracleManagerDao(connection);
     }
 
     @Override
     public ProjectDao getProjectDao(Connection connection) {
-        return null;
+        return new OracleProjectDao(connection);
     }
 
     @Override
