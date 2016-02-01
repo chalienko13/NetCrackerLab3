@@ -11,7 +11,7 @@ import java.sql.SQLException;
 /**
  * Created by Chalienko on 09-Dec-15.
  */
-public class OracleDaoFactory implements DaoFactory {
+public class OracleDaoFactory implements DaoFactory, AutoCloseable {
 
     private static String driver = "oracle.jdbc.driver.OracleDriver";
     private static String server = "localhost";
@@ -54,7 +54,8 @@ public class OracleDaoFactory implements DaoFactory {
         return new OracleEmployeeDao(getConnection());
     }
 
-    public void closeConnection() throws SQLException {
+    @Override
+    public void close() throws SQLException {
         getConnection().close();
     }
 }
