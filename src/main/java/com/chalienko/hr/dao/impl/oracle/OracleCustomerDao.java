@@ -2,7 +2,7 @@ package com.chalienko.hr.dao.impl.oracle;
 
 import com.chalienko.hr.dao.CustomerDao;
 import com.chalienko.hr.model.Customer;
-import com.chalienko.hr.model.impl.real.RealCustomer;
+import com.chalienko.hr.model.impl.real.CustomerImpl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,7 +33,7 @@ public class OracleCustomerDao implements CustomerDao {
         preparedStatement.setLong(1,key);
         ResultSet rs = preparedStatement.executeQuery();
         rs.next();
-        Customer customer = new RealCustomer();
+        Customer customer = new CustomerImpl();
         customer.setId(rs.getLong("ID"));
         customer.setCustomerName(rs.getString("NAME"));
         return customer;
@@ -63,7 +63,7 @@ public class OracleCustomerDao implements CustomerDao {
         ResultSet rs = preparedStatement.executeQuery();
         List<Customer> list = new ArrayList<>();
         while (rs.next()){
-            Customer customer = new RealCustomer();
+            Customer customer = new CustomerImpl();
             customer.setId(rs.getLong("ID"));
             customer.setCustomerName(rs.getString("NAME"));
             list.add(customer);

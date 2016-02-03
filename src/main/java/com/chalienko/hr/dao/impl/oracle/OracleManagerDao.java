@@ -2,9 +2,8 @@ package com.chalienko.hr.dao.impl.oracle;
 
 import com.chalienko.hr.dao.ManagerDao;
 import com.chalienko.hr.model.Manager;
-import com.chalienko.hr.model.impl.proxy.ProxyManager;
-import com.chalienko.hr.model.impl.proxy.ProxyProject;
-import com.chalienko.hr.model.impl.real.RealManager;
+import com.chalienko.hr.model.impl.proxy.ProjectProxy;
+import com.chalienko.hr.model.impl.real.ManagerImpl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,11 +34,11 @@ public class OracleManagerDao implements ManagerDao {
         preparedStatement.setLong(1,key);
         ResultSet rs = preparedStatement.executeQuery();
         rs.next();
-        Manager manager = new RealManager();
+        Manager manager = new ManagerImpl();
         manager.setId(rs.getLong("ID"));
         manager.setFirstName(rs.getString("FIRST_NAME"));
         manager.setLastName(rs.getString("LAST_NAME"));
-        manager.setProject(new ProxyProject(rs.getLong("ID_PROJECT")));
+        manager.setProject(new ProjectProxy(rs.getLong("ID_PROJECT")));
         return manager;
     }
 
@@ -69,11 +68,11 @@ public class OracleManagerDao implements ManagerDao {
         ResultSet rs = preparedStatement.executeQuery();
         List<Manager> list = new ArrayList<>();
         while (rs.next()){
-            Manager manager = new RealManager();
+            Manager manager = new ManagerImpl();
             manager.setId(rs.getLong("ID"));
             manager.setFirstName(rs.getString("FIRST_NAME"));
             manager.setLastName(rs.getString("LAST_NAME"));
-            manager.setProject(new ProxyProject(rs.getLong("ID_PROJECT")));
+            manager.setProject(new ProjectProxy(rs.getLong("ID_PROJECT")));
             list.add(manager);
         }
         return list;

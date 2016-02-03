@@ -2,9 +2,9 @@ package com.chalienko.hr.dao.impl.oracle;
 
 import com.chalienko.hr.dao.ProjectDao;
 import com.chalienko.hr.model.Project;
-import com.chalienko.hr.model.impl.proxy.ProxyCustomer;
-import com.chalienko.hr.model.impl.proxy.ProxyManager;
-import com.chalienko.hr.model.impl.real.RealProject;
+import com.chalienko.hr.model.impl.proxy.CustomerProxy;
+import com.chalienko.hr.model.impl.proxy.ManagerProxy;
+import com.chalienko.hr.model.impl.real.ProjectImpl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,11 +35,11 @@ public class OracleProjectDao implements ProjectDao {
         preparedStatement.setLong(1,key);
         ResultSet rs = preparedStatement.executeQuery();
         rs.next();
-        Project project = new RealProject();
+        Project project = new ProjectImpl();
         project.setId(rs.getLong("ID"));
         project.setProjectName(rs.getString("PROJECT_NAME"));
-        project.setManager(new ProxyManager(rs.getLong("ID_MANAGER")));
-        project.setCustomer(new ProxyCustomer(rs.getLong("ID_CUSTOMER")));
+        project.setManager(new ManagerProxy(rs.getLong("ID_MANAGER")));
+        project.setCustomer(new CustomerProxy(rs.getLong("ID_CUSTOMER")));
         return project;
     }
 
@@ -69,11 +69,11 @@ public class OracleProjectDao implements ProjectDao {
         ResultSet rs = preparedStatement.executeQuery();
         List<Project> list = new ArrayList<>();
         while (rs.next()){
-            Project project = new RealProject();
+            Project project = new ProjectImpl();
             project.setId(rs.getLong("ID"));
             project.setProjectName(rs.getString("PROJECT_NAME"));
-            project.setManager(new ProxyManager(rs.getLong("ID_MANAGER")));
-            project.setCustomer(new ProxyCustomer(rs.getLong("ID_CUSTOMER")));
+            project.setManager(new ManagerProxy(rs.getLong("ID_MANAGER")));
+            project.setCustomer(new CustomerProxy(rs.getLong("ID_CUSTOMER")));
             list.add(project);
         }
         return list;
