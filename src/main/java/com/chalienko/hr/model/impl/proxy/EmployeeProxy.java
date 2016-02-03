@@ -4,7 +4,7 @@ import com.chalienko.hr.dao.EmployeeDao;
 import com.chalienko.hr.dao.impl.oracle.OracleDaoFactory;
 import com.chalienko.hr.model.Employee;
 import com.chalienko.hr.model.Project;
-import com.chalienko.hr.model.impl.real.RealEmployee;
+import com.chalienko.hr.model.impl.real.EmployeeImpl;
 
 
 import java.sql.SQLException;
@@ -13,11 +13,11 @@ import java.util.List;
 /**
  * Created by Chalienko on 01.02.2016.
  */
-public class ProxyEmployee implements Employee {
+public class EmployeeProxy implements Employee {
     private Long id;
-    private RealEmployee employee;
+    private EmployeeImpl employee;
 
-    public ProxyEmployee(Long id) {
+    public EmployeeProxy(Long id) {
         this.id = id;
     }
 
@@ -34,7 +34,7 @@ public class ProxyEmployee implements Employee {
     @Override
     public String getFirstName() {
         if(employee == null){
-            employee = (RealEmployee) downloadEmployee();
+            employee = (EmployeeImpl) downloadEmployee();
         }
         return employee.getFirstName();
     }
@@ -50,7 +50,7 @@ public class ProxyEmployee implements Employee {
     @Override
     public String getLastName() {
         if(employee == null){
-            employee = (RealEmployee) downloadEmployee();
+            employee = (EmployeeImpl) downloadEmployee();
         }
         return employee.getLastName();
     }
@@ -58,7 +58,7 @@ public class ProxyEmployee implements Employee {
     @Override
     public void setLastName(String lastName) {
         if(employee == null){
-            employee = (RealEmployee) downloadEmployee();
+            employee = (EmployeeImpl) downloadEmployee();
         }
         employee.setLastName(lastName);
     }
@@ -66,7 +66,7 @@ public class ProxyEmployee implements Employee {
     @Override
     public void setProjects(List<Project> projects) {
         if(employee == null){
-            employee = (RealEmployee) downloadEmployee();
+            employee = (EmployeeImpl) downloadEmployee();
         }
         employee.setProjects(projects);
     }
@@ -74,16 +74,16 @@ public class ProxyEmployee implements Employee {
     @Override
     public List<Project> getProjects() {
         if(employee == null){
-            employee = (RealEmployee) downloadEmployee();
+            employee = (EmployeeImpl) downloadEmployee();
         }
         return employee.getProjects();
     }
 
-    private RealEmployee downloadEmployee(){
-        RealEmployee employee = null;
+    private EmployeeImpl downloadEmployee(){
+        EmployeeImpl employee = null;
         try(OracleDaoFactory oracleDaoFactory = new OracleDaoFactory()) {
             EmployeeDao employeeDao = oracleDaoFactory.getEmployeeDao();
-            employee = (RealEmployee) employeeDao.read(getId());
+            employee = (EmployeeImpl) employeeDao.read(getId());
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -3,18 +3,18 @@ package com.chalienko.hr.model.impl.proxy;
 import com.chalienko.hr.dao.CustomerDao;
 import com.chalienko.hr.dao.impl.oracle.OracleDaoFactory;
 import com.chalienko.hr.model.Customer;
-import com.chalienko.hr.model.impl.real.RealCustomer;
+import com.chalienko.hr.model.impl.real.CustomerImpl;
 
 import java.sql.SQLException;
 
 /**
  * Created by Chalienko on 01.02.2016.
  */
-public class ProxyCustomer implements Customer {
+public class CustomerProxy implements Customer {
     private Long id;
-    private RealCustomer customer;
+    private CustomerImpl customer;
 
-    public ProxyCustomer(Long id) {
+    public CustomerProxy(Long id) {
         this.id = id;
     }
 
@@ -44,11 +44,11 @@ public class ProxyCustomer implements Customer {
         customer.setCustomerName(customerName);
     }
 
-    private RealCustomer downloadCustomer(){
-        RealCustomer customer = null;
+    private CustomerImpl downloadCustomer(){
+        CustomerImpl customer = null;
         try(OracleDaoFactory oracleDaoFactory = new OracleDaoFactory()) {
             CustomerDao customerDao = oracleDaoFactory.getCustomDao();
-            customer = (RealCustomer) customerDao.read(getId());
+            customer = (CustomerImpl) customerDao.read(getId());
         } catch (SQLException e) {
             e.printStackTrace();
         }

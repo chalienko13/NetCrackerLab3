@@ -6,7 +6,7 @@ import com.chalienko.hr.model.Customer;
 import com.chalienko.hr.model.Employee;
 import com.chalienko.hr.model.Manager;
 import com.chalienko.hr.model.Project;
-import com.chalienko.hr.model.impl.real.RealProject;
+import com.chalienko.hr.model.impl.real.ProjectImpl;
 
 
 import java.sql.SQLException;
@@ -15,11 +15,11 @@ import java.util.List;
 /**
  * Created by Chalienko on 01.02.2016.
  */
-public class ProxyProject implements Project {
+public class ProjectProxy implements Project {
     private Long id;
-    private RealProject project;
+    private ProjectImpl project;
 
-    public ProxyProject(Long id) {
+    public ProjectProxy(Long id) {
         this.id = id;
     }
 
@@ -97,11 +97,11 @@ public class ProxyProject implements Project {
         project.setProjectName(projectName);
     }
 
-    private RealProject downloadProject(){
-        RealProject project = null;
+    private ProjectImpl downloadProject(){
+        ProjectImpl project = null;
         try(OracleDaoFactory oracleDaoFactory = new OracleDaoFactory()) {
             ProjectDao projectDao = oracleDaoFactory.getProjectDao();
-            project = (RealProject) projectDao.read(getId());
+            project = (ProjectImpl) projectDao.read(getId());
         } catch (SQLException e) {
             e.printStackTrace();
         }

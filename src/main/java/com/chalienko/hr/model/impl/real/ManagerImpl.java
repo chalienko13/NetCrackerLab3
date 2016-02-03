@@ -1,19 +1,15 @@
 package com.chalienko.hr.model.impl.real;
 
-import com.chalienko.hr.model.Employee;
+import com.chalienko.hr.model.Manager;
 import com.chalienko.hr.model.Project;
 import com.chalienko.hr.model.Model;
 
-import java.util.List;
-
 /**
  * Created by Chalienko on 09-Dec-15.
- *
- * ???????? 1-project and few realProjects
  */
-public class RealEmployee implements Employee {
+public class ManagerImpl implements Manager {
 
-    private static final long serialVersionUID = -1724662175481476642L;
+    private static final long serialVersionUID = 9105111485873801110L;
 
     private Long id;
 
@@ -21,13 +17,13 @@ public class RealEmployee implements Employee {
 
     private String lastName;
 
-    private List<Project> projects;
+    private Project project;
 
-    public RealEmployee() {
+    public ManagerImpl() {
 
     }
 
-    public RealEmployee(Long id){
+    public ManagerImpl(Long id){
         this.id = id;
     }
 
@@ -39,6 +35,14 @@ public class RealEmployee implements Employee {
     @Override
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     public String getFirstName() {
@@ -57,21 +61,14 @@ public class RealEmployee implements Employee {
         this.lastName = lastName;
     }
 
-    public void setProjects(List<Project> projects) {
-        this.projects = projects;
-    }
-
-    public List<Project> getProjects() {
-        return projects;
-    }
-
     @Override
     public String toString() {
-        return "RealEmployee{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
+        return "ManagerImpl{" +
+                "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", projects=" + projects +
+                ", realProject='" +  project.getProjectName() + '\'' +
                 '}';
     }
+
+
 }

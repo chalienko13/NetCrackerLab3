@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by Chalienko on 09-Dec-15.
  */
-public class RealProject implements Project {
+public class ProjectImpl implements Project {
 
     private static final long serialVersionUID = -5809112583788445522L;
 
@@ -24,10 +24,10 @@ public class RealProject implements Project {
 
     private List<Employee> employees;
 
-    public RealProject() {
+    public ProjectImpl() {
     }
 
-    public RealProject(Long id) {
+    public ProjectImpl(Long id) {
         this.id = id;
     }
 
@@ -75,7 +75,7 @@ public class RealProject implements Project {
 
     @Override
     public String toString() {
-        return "RealProject{" +
+        return "ProjectImpl{" +
                 "id=" + id +
                 ", customer=" + customer.getCustomerName() +
                 ", manager=" + manager.getLastName() +

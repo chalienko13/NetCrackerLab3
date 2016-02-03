@@ -4,7 +4,7 @@ import com.chalienko.hr.dao.ManagerDao;
 import com.chalienko.hr.dao.impl.oracle.OracleDaoFactory;
 import com.chalienko.hr.model.Manager;
 import com.chalienko.hr.model.Project;
-import com.chalienko.hr.model.impl.real.RealManager;
+import com.chalienko.hr.model.impl.real.ManagerImpl;
 
 import java.sql.SQLException;
 
@@ -12,11 +12,11 @@ import java.sql.SQLException;
 /**
  * Created by Chalienko on 01.02.2016.
  */
-public class ProxyManager implements Manager {
+public class ManagerProxy implements Manager {
     private Long id;
-    private RealManager manager;
+    private ManagerImpl manager;
 
-    public ProxyManager(Long id) {
+    public ManagerProxy(Long id) {
         this.id = id;
 
     }
@@ -73,11 +73,11 @@ public class ProxyManager implements Manager {
         manager.setLastName(lastName);
     }
 
-    private RealManager downloadManager(){
-        RealManager manager = null;
+    private ManagerImpl downloadManager(){
+        ManagerImpl manager = null;
         try(OracleDaoFactory oracleDaoFactory = new OracleDaoFactory()) {
             ManagerDao managerDao = oracleDaoFactory.getManagerDao();
-            manager = (RealManager) managerDao.read(getId());
+            manager = (ManagerImpl) managerDao.read(getId());
         } catch (SQLException e) {
             e.printStackTrace();
         }

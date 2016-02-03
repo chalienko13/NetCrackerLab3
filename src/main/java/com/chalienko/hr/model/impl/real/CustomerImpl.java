@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Chalienko on 09-Dec-15.
  */
-public class RealCustomer implements Customer {
+public class CustomerImpl implements Customer {
 
     private static final long serialVersionUID = -4277472522111888961L;
 
@@ -18,11 +18,11 @@ public class RealCustomer implements Customer {
 
     private List<Project> projects;
 
-    public RealCustomer() {
+    public CustomerImpl() {
         super();
     }
 
-    public RealCustomer(Long id) {
+    public CustomerImpl(Long id) {
         this.id = id;
     }
 
@@ -46,7 +46,7 @@ public class RealCustomer implements Customer {
 
     @Override
     public String toString() {
-        return "RealCustomer{" + "id = " + getId() +
+        return "CustomerImpl{" + "id = " + getId() +
                 "; customerName='" + getCustomerName() + '\'' +
                 '}';
     }
