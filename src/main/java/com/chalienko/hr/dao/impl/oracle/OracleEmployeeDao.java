@@ -22,8 +22,13 @@ public class OracleEmployeeDao implements EmployeeDao {
     }
 
     @Override
-    public Employee create() {
-        return null;
+    public void create(Employee employee) throws SQLException {
+        String sql = "INSERT INTO EMPLOYEE(ID, FIRST_NAME, LAST_NAME) VALUES(?,?,?))    ";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setLong(1,employee.getId());
+        preparedStatement.setString(2,employee.getFirstName());
+        preparedStatement.setString(3, employee.getLastName());
+        preparedStatement.execute();
     }
 
     @Override

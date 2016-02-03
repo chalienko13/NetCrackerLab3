@@ -23,8 +23,16 @@ public class OracleManagerDao implements ManagerDao {
     }
 
     @Override
-    public Manager create() {
-        return null;
+    public void create(Manager manager) throws SQLException {
+        String sql = "INSERT INTO MANAGER(ID, FIRST_NAME, LAST_NAME, ID_PROJECT) VALUES(?,?,?,?))    ";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setLong(1,manager.getId());
+        preparedStatement.setString(2,manager.getFirstName());
+        preparedStatement.setString(3,manager.getLastName());
+        if (manager.getProject() != null) {
+            preparedStatement.setLong(4,manager.getProject().getId());
+        }
+        preparedStatement.execute();
     }
 
     @Override

@@ -24,8 +24,18 @@ public class OracleProjectDao implements ProjectDao {
     }
 
     @Override
-    public Project create() {
-        return null;
+    public void create(Project project) throws SQLException {
+        String sql = "INSERT INTO PROJECT(ID, ID_CUSTOMER, ID_MANAGER, PROJECT_NAME ) VALUES(?,?,?,?))    ";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setLong(1,project.getId());
+        if (project.getCustomer() != null) {
+            preparedStatement.setLong(2, project.getCustomer().getId());
+        }
+        if (project.getManager() != null){
+            preparedStatement.setLong(3,project.getManager().getId());
+        }
+        preparedStatement.setString(4,project.getProjectName());
+        preparedStatement.execute();
     }
 
     @Override

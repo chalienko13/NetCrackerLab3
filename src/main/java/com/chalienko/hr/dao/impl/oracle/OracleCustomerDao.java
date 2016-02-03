@@ -22,8 +22,12 @@ public class OracleCustomerDao implements CustomerDao {
     }
 
     @Override
-    public Customer create() {
-        return null;
+    public void create(Customer customer) throws SQLException {
+        String sql = "INSERT INTO CUSTOMER(ID, NAME) VALUES(?,?))    ";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setLong(1,customer.getId());
+        preparedStatement.setString(2,customer.getCustomerName());
+        preparedStatement.execute();
     }
 
     @Override

@@ -17,7 +17,7 @@ public interface ProjectDao {
      * It creates a new record and the corresponding object
      * @return ProjectImpl
      */
-    Project create();
+    void create(Project project) throws SQLException;
 
     /**
      * Gets the appropriate entries to the primary by key or null

@@ -18,7 +18,7 @@ public interface CustomerDao {
      * It creates a new record and the corresponding object
      * @return CustomerImpl
      */
-    Customer create();
+    void create(Customer customer) throws SQLException;
 
     /**
      * Gets the appropriate entries to the primary by key or null

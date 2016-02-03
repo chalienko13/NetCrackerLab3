@@ -17,7 +17,7 @@ public interface EmployeeDao {
      * It creates a new record and the corresponding object
      * @return EmployeeImpl
      */
-    Employee create();
+    void create(Employee employee) throws SQLException;
 
     /**
      * Gets the appropriate entries to the primary by key or null

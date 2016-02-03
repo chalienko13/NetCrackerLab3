@@ -18,7 +18,7 @@ public interface ManagerDao {
      * It creates a new record and the corresponding object
      * @return ManagerImpl
      */
-    Manager create();
+    void create(Manager manager) throws SQLException;
 
     /**
      * Gets the appropriate entries to the primary by key or null
