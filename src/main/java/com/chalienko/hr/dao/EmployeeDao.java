@@ -1,7 +1,6 @@
 package com.chalienko.hr.dao;
 
 import com.chalienko.hr.model.Employee;
-import com.chalienko.hr.model.impl.real.RealEmployee;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -10,20 +9,20 @@ import java.util.List;
  * Created by Chalienko on 09-Dec-15.
  */
 /**
- * The object for managing persistent state of the RealEmployee object
+ * The object for managing persistent state of the EmployeeImpl object
  */
 public interface EmployeeDao {
 
     /**
      * It creates a new record and the corresponding object
-     * @return RealEmployee
+     * @return EmployeeImpl
      */
     Employee create();
 
     /**
      * Gets the appropriate entries to the primary by key or null
      * @param key
-     * @return RealEmployee
+     * @return EmployeeImpl
      */
     Employee read(Long key) throws SQLException;
 

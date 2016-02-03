@@ -1,7 +1,6 @@
 package com.chalienko.hr.dao;
 
 import com.chalienko.hr.model.Manager;
-import com.chalienko.hr.model.impl.real.RealManager;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -11,20 +10,20 @@ import java.util.List;
  */
 
 /**
- * The object for managing persistent state of the RealManager object
+ * The object for managing persistent state of the ManagerImpl object
  */
 public interface ManagerDao {
 
     /**
      * It creates a new record and the corresponding object
-     * @return RealManager
+     * @return ManagerImpl
      */
     Manager create();
 
     /**
      * Gets the appropriate entries to the primary by key or null
      * @param key
-     * @return RealManager
+     * @return ManagerImpl
      */
     Manager read(Long key) throws SQLException;
 
