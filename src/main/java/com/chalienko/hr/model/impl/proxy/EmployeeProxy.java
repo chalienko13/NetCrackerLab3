@@ -1,7 +1,7 @@
 package com.chalienko.hr.model.impl.proxy;
 
 import com.chalienko.hr.dao.EmployeeDao;
-import com.chalienko.hr.dao.impl.oracle.OracleDaoFactory;
+import com.chalienko.hr.dao.impl.oracle.DaoOracleFactory;
 import com.chalienko.hr.model.Employee;
 import com.chalienko.hr.model.Project;
 import com.chalienko.hr.model.impl.real.EmployeeImpl;
@@ -34,7 +34,7 @@ public class EmployeeProxy implements Employee {
     @Override
     public String getFirstName() {
         if(employee == null){
-            employee = (EmployeeImpl) downloadEmployee();
+            employee =  downloadEmployee();
         }
         return employee.getFirstName();
     }
@@ -50,7 +50,7 @@ public class EmployeeProxy implements Employee {
     @Override
     public String getLastName() {
         if(employee == null){
-            employee = (EmployeeImpl) downloadEmployee();
+            employee =  downloadEmployee();
         }
         return employee.getLastName();
     }
@@ -58,7 +58,7 @@ public class EmployeeProxy implements Employee {
     @Override
     public void setLastName(String lastName) {
         if(employee == null){
-            employee = (EmployeeImpl) downloadEmployee();
+            employee = downloadEmployee();
         }
         employee.setLastName(lastName);
     }
@@ -66,7 +66,7 @@ public class EmployeeProxy implements Employee {
     @Override
     public void setProjects(List<Project> projects) {
         if(employee == null){
-            employee = (EmployeeImpl) downloadEmployee();
+            employee = downloadEmployee();
         }
         employee.setProjects(projects);
     }
@@ -74,19 +74,20 @@ public class EmployeeProxy implements Employee {
     @Override
     public List<Project> getProjects() {
         if(employee == null){
-            employee = (EmployeeImpl) downloadEmployee();
+            employee =  downloadEmployee();
         }
         return employee.getProjects();
     }
 
     private EmployeeImpl downloadEmployee(){
         EmployeeImpl employee = null;
-        try(OracleDaoFactory oracleDaoFactory = new OracleDaoFactory()) {
-            EmployeeDao employeeDao = oracleDaoFactory.getEmployeeDao();
+        try(DaoOracleFactory daoOracleFactory = new DaoOracleFactory()) {
+            EmployeeDao employeeDao = daoOracleFactory.getEmployeeDao();
             employee = (EmployeeImpl) employeeDao.read(getId());
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return  employee;
     }
+
 }

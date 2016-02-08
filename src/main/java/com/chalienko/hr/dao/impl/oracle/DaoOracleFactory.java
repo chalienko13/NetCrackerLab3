@@ -11,7 +11,7 @@ import java.sql.SQLException;
 /**
  * Created by Chalienko on 09-Dec-15.
  */
-public class OracleDaoFactory implements DaoFactory, AutoCloseable {
+public class DaoOracleFactory implements DaoFactory {
 
     private static String driver = "oracle.jdbc.driver.OracleDriver";
     private static String server = "localhost";
@@ -21,7 +21,7 @@ public class OracleDaoFactory implements DaoFactory, AutoCloseable {
     private static String password = "chalienko13";
     private static String url = "jdbc:oracle:thin:@" + server + ":" + port + ":" + sid;
 
-    public OracleDaoFactory() {
+    public DaoOracleFactory() {
         try {
             Class.forName(driver);
         } catch (ClassNotFoundException e) {
@@ -36,22 +36,22 @@ public class OracleDaoFactory implements DaoFactory, AutoCloseable {
 
     @Override
     public ManagerDao getManagerDao() throws SQLException {
-        return new OracleManagerDao(getConnection());
+        return new ManagerOracleDao(getConnection());
     }
 
     @Override
     public ProjectDao getProjectDao() throws SQLException {
-        return new OracleProjectDao(getConnection());
+        return new ProjectOracleDao(getConnection());
     }
 
     @Override
     public CustomerDao getCustomDao() throws SQLException {
-        return new OracleCustomerDao(getConnection());
+        return new CustomerOracleDao(getConnection());
     }
 
     @Override
     public EmployeeDao getEmployeeDao() throws SQLException {
-        return new OracleEmployeeDao(getConnection());
+        return new EmployeeOracleDao(getConnection());
     }
 
     @Override

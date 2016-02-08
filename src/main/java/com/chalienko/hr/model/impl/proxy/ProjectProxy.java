@@ -1,7 +1,7 @@
 package com.chalienko.hr.model.impl.proxy;
 
 import com.chalienko.hr.dao.ProjectDao;
-import com.chalienko.hr.dao.impl.oracle.OracleDaoFactory;
+import com.chalienko.hr.dao.impl.oracle.DaoOracleFactory;
 import com.chalienko.hr.model.Customer;
 import com.chalienko.hr.model.Employee;
 import com.chalienko.hr.model.Manager;
@@ -99,12 +99,13 @@ public class ProjectProxy implements Project {
 
     private ProjectImpl downloadProject(){
         ProjectImpl project = null;
-        try(OracleDaoFactory oracleDaoFactory = new OracleDaoFactory()) {
-            ProjectDao projectDao = oracleDaoFactory.getProjectDao();
+        try(DaoOracleFactory daoOracleFactory = new DaoOracleFactory()) {
+            ProjectDao projectDao = daoOracleFactory.getProjectDao();
             project = (ProjectImpl) projectDao.read(getId());
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return  project;
     }
+
 }

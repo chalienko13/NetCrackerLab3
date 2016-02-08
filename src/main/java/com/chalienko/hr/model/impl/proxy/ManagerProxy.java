@@ -1,7 +1,7 @@
 package com.chalienko.hr.model.impl.proxy;
 
 import com.chalienko.hr.dao.ManagerDao;
-import com.chalienko.hr.dao.impl.oracle.OracleDaoFactory;
+import com.chalienko.hr.dao.impl.oracle.DaoOracleFactory;
 import com.chalienko.hr.model.Manager;
 import com.chalienko.hr.model.Project;
 import com.chalienko.hr.model.impl.real.ManagerImpl;
@@ -75,8 +75,8 @@ public class ManagerProxy implements Manager {
 
     private ManagerImpl downloadManager(){
         ManagerImpl manager = null;
-        try(OracleDaoFactory oracleDaoFactory = new OracleDaoFactory()) {
-            ManagerDao managerDao = oracleDaoFactory.getManagerDao();
+        try(DaoOracleFactory daoOracleFactory = new DaoOracleFactory()) {
+            ManagerDao managerDao = daoOracleFactory.getManagerDao();
             manager = (ManagerImpl) managerDao.read(getId());
         } catch (SQLException e) {
             e.printStackTrace();

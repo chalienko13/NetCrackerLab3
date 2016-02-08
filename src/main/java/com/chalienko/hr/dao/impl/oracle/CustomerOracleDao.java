@@ -14,10 +14,10 @@ import java.util.List;
 /**
  * Created by Chalienko on 10-Dec-15.
  */
-public class OracleCustomerDao implements CustomerDao {
+public class CustomerOracleDao implements CustomerDao {
     private Connection connection;
 
-    public OracleCustomerDao(Connection connection){
+    public CustomerOracleDao(Connection connection){
         this.connection = connection;
     }
 

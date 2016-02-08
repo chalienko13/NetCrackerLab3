@@ -6,7 +6,7 @@ import java.sql.SQLException;
 /**
  * Created by Chalienko on 09-Dec-15.
  */
-public interface DaoFactory {
+public interface DaoFactory extends AutoCloseable {
 
     /**
      * Returns a connection to the database

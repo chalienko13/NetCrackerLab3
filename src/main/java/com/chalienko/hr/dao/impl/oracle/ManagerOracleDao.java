@@ -15,10 +15,10 @@ import java.util.List;
 /**
  * Created by Chalienko on 29.01.2016.
  */
-public class OracleManagerDao implements ManagerDao {
+public class ManagerOracleDao implements ManagerDao {
     private Connection connection;
 
-    public OracleManagerDao(Connection connection) {
+    public ManagerOracleDao(Connection connection) {
         this.connection = connection;
     }
 

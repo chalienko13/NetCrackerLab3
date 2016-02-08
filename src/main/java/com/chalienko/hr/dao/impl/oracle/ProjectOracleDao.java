@@ -1,8 +1,10 @@
 package com.chalienko.hr.dao.impl.oracle;
 
 import com.chalienko.hr.dao.ProjectDao;
+import com.chalienko.hr.model.Employee;
 import com.chalienko.hr.model.Project;
 import com.chalienko.hr.model.impl.proxy.CustomerProxy;
+import com.chalienko.hr.model.impl.proxy.EmployeeProxy;
 import com.chalienko.hr.model.impl.proxy.ManagerProxy;
 import com.chalienko.hr.model.impl.real.ProjectImpl;
 
@@ -16,10 +18,10 @@ import java.util.List;
 /**
  * Created by Chalienko on 29.01.2016.
  */
-public class OracleProjectDao implements ProjectDao {
+public class ProjectOracleDao implements ProjectDao {
     private Connection connection;
 
-    public OracleProjectDao(Connection connection) {
+    public ProjectOracleDao(Connection connection) {
         this.connection = connection;
     }
 
@@ -50,6 +52,16 @@ public class OracleProjectDao implements ProjectDao {
         project.setProjectName(rs.getString("PROJECT_NAME"));
         project.setManager(new ManagerProxy(rs.getLong("ID_MANAGER")));
         project.setCustomer(new CustomerProxy(rs.getLong("ID_CUSTOMER")));
+
+        List<Employee> employees = new ArrayList<>();
+        String sqlMany = "SELECT EMPLOYEE_ID FROM C##CHAL.EMPLOYEE_PROJECT WHERE PROJECT_ID = ?";
+        PreparedStatement ps = connection.prepareStatement(sqlMany);
+        ps.setLong(1,key);
+        ResultSet resultSet = ps.executeQuery();
+        while (resultSet.next()){
+            employees.add(new EmployeeProxy(resultSet.getLong("EMPLOYEE_ID")));
+        }
+        project.setEmployees(employees);
         return project;
     }
 

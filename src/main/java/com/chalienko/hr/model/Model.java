@@ -6,10 +6,7 @@ import java.io.Serializable;
  * Created by Chalienko on 29.01.2016.
  */
 public interface  Model extends Serializable {
+    Long getId();
 
-    static final long serialVersionUID = -5743090912999199238L;
-
-    public Long getId();
-
-    public void setId(Long id);
+    void setId(Long id);
 }
