@@ -21,6 +21,12 @@ public class DaoOracleFactory implements DaoFactory {
     private static String password = "chalienko13";
     private static String url = "jdbc:oracle:thin:@" + server + ":" + port + ":" + sid;
 
+    private static DaoOracleFactory daoOracleFactory = new DaoOracleFactory();
+
+    public static DaoOracleFactory getInstance(){
+        return daoOracleFactory;
+    }
+
     public DaoOracleFactory() {
         try {
             Class.forName(driver);
@@ -40,12 +46,12 @@ public class DaoOracleFactory implements DaoFactory {
 
     @Override
     public ManagerDao getManagerDao() throws DAOException {
-        return new ManagerOracleDao(getConnection());
+        return new ManagerOracleDao();
     }
 
     @Override
     public ProjectDao getProjectDao() throws DAOException {
-        return new ProjectOracleDao(getConnection());
+        return new ProjectOracleDao();
     }
 
     @Override
@@ -55,7 +61,7 @@ public class DaoOracleFactory implements DaoFactory {
 
     @Override
     public EmployeeDao getEmployeeDao() throws DAOException {
-        return new EmployeeOracleDao(getConnection());
+        return new EmployeeOracleDao();
     }
 
     @Override
