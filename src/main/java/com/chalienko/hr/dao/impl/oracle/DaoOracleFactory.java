@@ -30,32 +30,40 @@ public class DaoOracleFactory implements DaoFactory {
     }
 
     @Override
-    public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(url,username,password);
+    public Connection getConnection() throws DAOException {
+        try {
+            return DriverManager.getConnection(url,username,password);
+        } catch (SQLException e) {
+            throw new DAOException("Cannot get connection", e);
+        }
     }
 
     @Override
-    public ManagerDao getManagerDao() throws SQLException {
+    public ManagerDao getManagerDao() throws DAOException {
         return new ManagerOracleDao(getConnection());
     }
 
     @Override
-    public ProjectDao getProjectDao() throws SQLException {
+    public ProjectDao getProjectDao() throws DAOException {
         return new ProjectOracleDao(getConnection());
     }
 
     @Override
-    public CustomerDao getCustomDao() throws SQLException {
-        return new CustomerOracleDao(getConnection());
+    public CustomerDao getCustomDao() throws DAOException {
+        return new CustomerOracleDao();
     }
 
     @Override
-    public EmployeeDao getEmployeeDao() throws SQLException {
+    public EmployeeDao getEmployeeDao() throws DAOException {
         return new EmployeeOracleDao(getConnection());
     }
 
     @Override
-    public void close() throws SQLException {
-        getConnection().close();
+    public void close() throws DAOException {
+        try {
+            getConnection().close();
+        } catch (SQLException e) {
+            throw new DAOException("Cannot close connection", e);
+        }
     }
 }

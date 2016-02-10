@@ -48,7 +48,7 @@ public class CustomerProxy implements Customer {
         CustomerImpl customer = null;
         try(DaoOracleFactory daoOracleFactory = new DaoOracleFactory()) {
             CustomerDao customerDao = daoOracleFactory.getCustomDao();
-            customer = (CustomerImpl) customerDao.read(getId());
+            customer = (CustomerImpl) customerDao.getByID(getId());
         } catch (SQLException e) {
             e.printStackTrace();
         }

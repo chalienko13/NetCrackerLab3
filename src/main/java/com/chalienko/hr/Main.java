@@ -12,12 +12,6 @@ import java.sql.SQLException;
 public class Main {
     public static void main(String[] args) throws SQLException {
         Project project = null;
-        try(DaoOracleFactory daoOracleFactory = new DaoOracleFactory()){
-            ProjectDao projectDao = daoOracleFactory.getProjectDao();
-            project = projectDao.read(1L);
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
         System.out.println(project);
 
     }

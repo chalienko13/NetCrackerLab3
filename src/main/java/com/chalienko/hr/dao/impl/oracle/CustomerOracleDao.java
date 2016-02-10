@@ -1,6 +1,8 @@
 package com.chalienko.hr.dao.impl.oracle;
 
 import com.chalienko.hr.dao.CustomerDao;
+import com.chalienko.hr.dao.DAOException;
+import com.chalienko.hr.dao.DaoFactory;
 import com.chalienko.hr.model.Customer;
 import com.chalienko.hr.model.impl.real.CustomerImpl;
 
@@ -15,63 +17,94 @@ import java.util.List;
  * Created by Chalienko on 10-Dec-15.
  */
 public class CustomerOracleDao implements CustomerDao {
-    private Connection connection;
 
-    public CustomerOracleDao(Connection connection){
-        this.connection = connection;
+    private DaoFactory daoFactory = new DaoOracleFactory();
+
+    @Override
+    public void create(Customer customer) throws DAOException {
+        String sql = "INSERT INTO CUSTOMER(ID, NAME) VALUES(?,?))";
+
+        try (Connection connection = daoFactory.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setLong(1, customer.getId());
+            statement.setString(2, customer.getCustomerName());
+            statement.execute();
+
+        } catch (SQLException e) {
+            throw new DAOException("Cannot create customer", e);
+        }
     }
 
     @Override
-    public void create(Customer customer) throws SQLException {
-        String sql = "INSERT INTO CUSTOMER(ID, NAME) VALUES(?,?))    ";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setLong(1,customer.getId());
-        preparedStatement.setString(2,customer.getCustomerName());
-        preparedStatement.execute();
-    }
-
-    @Override
-    public Customer read(Long key) throws SQLException {
+    public Customer getByID(Long key) throws DAOException {
         String sql = "SELECT * FROM C##CHAL.CUSTOMER WHERE ID = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setLong(1,key);
-        ResultSet rs = preparedStatement.executeQuery();
-        rs.next();
-        Customer customer = new CustomerImpl();
-        customer.setId(rs.getLong("ID"));
-        customer.setCustomerName(rs.getString("NAME"));
+        Customer customer = null;
+
+        try (Connection connection = daoFactory.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet rs = statement.executeQuery()) {
+
+            statement.setLong(1, key);
+            if (rs.next()) {
+                customer = new CustomerImpl();
+                customer.setId(rs.getLong("ID"));
+                customer.setCustomerName(rs.getString("NAME"));
+            }
+
+        } catch (SQLException e) {
+            throw new DAOException("Cannot read customer by id", e);
+        }
         return customer;
     }
 
     @Override
-    public int update(Customer customer) throws SQLException {
+    public int update(Customer customer) throws DAOException {
         String sql = "UPDATE C##CHAL.CUSTOMER SET NAME = ? WHERE ID = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1,customer.getCustomerName());
-        preparedStatement.setLong(2,customer.getId());
-        return preparedStatement.executeUpdate();
-    }
 
-    @Override
-    public void delete(Customer customer) throws SQLException {
-        String sql = "DELETE FROM C##CHAL.CUSTOMER WHERE ID = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setLong(1,customer.getId());
-        preparedStatement.execute();
-    }
+        try (Connection connection = daoFactory.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, customer.getCustomerName());
+            statement.setLong(2, customer.getId());
+            return statement.executeUpdate();
 
-    @Override
-    public List<Customer> getAll() throws SQLException {
-        String sql = "SELECT * FROM C##CHAL.CUSTOMER";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        ResultSet rs = preparedStatement.executeQuery();
-        List<Customer> list = new ArrayList<>();
-        while (rs.next()){
-            Customer customer = new CustomerImpl();
-            customer.setId(rs.getLong("ID"));
-            customer.setCustomerName(rs.getString("NAME"));
-            list.add(customer);
+        } catch (SQLException e) {
+            throw new DAOException("Cannot update customer", e);
         }
-        return list;
+    }
+
+    @Override
+    public void delete(Customer customer) throws DAOException {
+        String sql = "DELETE FROM C##CHAL.CUSTOMER WHERE ID = ?";
+
+        try (Connection connection = daoFactory.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setLong(1, customer.getId());
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<Customer> getAll() throws DAOException {
+        String sql = "SELECT * FROM C##CHAL.CUSTOMER";
+        List<Customer> list = new ArrayList<>();
+
+        try (Connection connection = daoFactory.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet rs = statement.executeQuery()) {
+
+            while (rs.next()) {
+                Customer customer = new CustomerImpl();
+                customer.setId(rs.getLong("ID"));
+                customer.setCustomerName(rs.getString("NAME"));
+                list.add(customer);
+            }
+            return list;
+
+        } catch (SQLException e) {
+            throw new DAOException("Cannot get all Customers", e);
+        }
     }
 }

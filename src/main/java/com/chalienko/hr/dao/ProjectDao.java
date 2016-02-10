@@ -17,31 +17,31 @@ public interface ProjectDao {
      * It creates a new record and the corresponding object
      * @return ProjectImpl
      */
-    void create(Project project) throws SQLException;
+    void create(Project project) throws DAOException;
 
     /**
      * Gets the appropriate entries to the primary by key or null
      * @param key
      * @return ProjectImpl
      */
-    Project read(Long key) throws SQLException;
+    Project read(Long key) throws DAOException;
 
     /**
      * It saves the state of the object group in the database
      * @param project
      */
-    int update(Project project) throws SQLException;
+    int update(Project project) throws DAOException;
 
     /**
      * Removes the entry of the object from the database
      * @param project
      */
-    void delete(Project project) throws SQLException;
+    void delete(Project project) throws DAOException;
 
     /**
      * Returns a list of all the relevant records in the database
      * @return List of Projects
      * @throws SQLException
      */
-    List<Project> getAll() throws SQLException;
+    List<Project> getAll() throws DAOException;
 }

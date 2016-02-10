@@ -17,31 +17,31 @@ public interface EmployeeDao {
      * It creates a new record and the corresponding object
      * @return EmployeeImpl
      */
-    void create(Employee employee) throws SQLException;
+    void create(Employee employee) throws DAOException;
 
     /**
      * Gets the appropriate entries to the primary by key or null
      * @param key
      * @return EmployeeImpl
      */
-    Employee read(Long key) throws SQLException;
+    Employee read(Long key) throws DAOException;
 
     /**
      * It saves the state of the object group in the database
      * @param employee
      */
-    int update(Employee employee) throws SQLException;
+    int update(Employee employee) throws DAOException;
 
     /**
      * Removes the entry of the object from the database
      * @param employee
      */
-    void delete(Employee employee) throws SQLException;
+    void delete(Employee employee) throws DAOException;
 
     /**
      * Returns a list of all the relevant records in the database
      * @return List of Employees
      * @throws SQLException
      */
-    List<Employee> getAll() throws SQLException;
+    List<Employee> getAll() throws DAOException;
 }

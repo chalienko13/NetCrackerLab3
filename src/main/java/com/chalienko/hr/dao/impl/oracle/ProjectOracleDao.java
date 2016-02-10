@@ -1,5 +1,7 @@
 package com.chalienko.hr.dao.impl.oracle;
 
+import com.chalienko.hr.dao.DAOException;
+import com.chalienko.hr.dao.DaoFactory;
 import com.chalienko.hr.dao.ProjectDao;
 import com.chalienko.hr.model.Employee;
 import com.chalienko.hr.model.Project;
@@ -19,14 +21,11 @@ import java.util.List;
  * Created by Chalienko on 29.01.2016.
  */
 public class ProjectOracleDao implements ProjectDao {
-    private Connection connection;
 
-    public ProjectOracleDao(Connection connection) {
-        this.connection = connection;
-    }
+    private DaoFactory daoFactory = new DaoOracleFactory();
 
     @Override
-    public void create(Project project) throws SQLException {
+    public void create(Project project) throws DAOException {
         String sql = "INSERT INTO PROJECT(ID, ID_CUSTOMER, ID_MANAGER, PROJECT_NAME ) VALUES(?,?,?,?))    ";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setLong(1,project.getId());
@@ -41,7 +40,7 @@ public class ProjectOracleDao implements ProjectDao {
     }
 
     @Override
-    public Project read(Long key) throws SQLException {
+    public Project read(Long key) throws DAOException {
         String sql = "SELECT * FROM C##CHAL.PROJECT WHERE ID = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setLong(1,key);
@@ -66,7 +65,7 @@ public class ProjectOracleDao implements ProjectDao {
     }
 
     @Override
-    public int update(Project project) throws SQLException {
+    public int update(Project project) throws DAOException {
         String sql = "UPDATE C##CHAL.Project SET PROJECT_NAME = ?, ID_CUSTOMER = ?, ID_MANAGER = ?  WHERE ID = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, project.getProjectName());
@@ -77,7 +76,7 @@ public class ProjectOracleDao implements ProjectDao {
     }
 
     @Override
-    public void delete(Project project) throws SQLException {
+    public void delete(Project project) throws DAOException {
         String sql = "DELETE FROM C##CHAL.Project WHERE ID = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setLong(1, project.getId());
@@ -85,7 +84,7 @@ public class ProjectOracleDao implements ProjectDao {
     }
 
     @Override
-    public List<Project> getAll() throws SQLException {
+    public List<Project> getAll() throws DAOException {
         String sql = "SELECT * FROM C##CHAL.Project";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         ResultSet rs = preparedStatement.executeQuery();

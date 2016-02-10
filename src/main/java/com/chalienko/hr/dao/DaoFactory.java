@@ -13,30 +13,30 @@ public interface DaoFactory extends AutoCloseable {
      * @return connection
      * @throws SQLException
      */
-    Connection getConnection() throws SQLException;
+    Connection getConnection() throws DAOException;
 
     /**
      * Gets the object for the persistent state of the object management Managers
      * @return ManagersDao
      */
-    ManagerDao getManagerDao() throws SQLException;
+    ManagerDao getManagerDao() throws DAOException;
 
     /**
      * Gets the object for the persistent state of the object management Projects
      * @return ProjectsDao
      */
-    ProjectDao getProjectDao() throws SQLException;
+    ProjectDao getProjectDao() throws DAOException;
 
     /**
      * Gets the object for the persistent state of the object management Customs
      * @return
      */
-    CustomerDao getCustomDao() throws SQLException;
+    CustomerDao getCustomDao() throws DAOException;
 
     /**
      * Gets the object for the persistent state of the object management Employees
      * @return EmployeeDao
      */
-    EmployeeDao getEmployeeDao() throws SQLException;
+    EmployeeDao getEmployeeDao() throws DAOException;
 
 }

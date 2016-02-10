@@ -18,31 +18,31 @@ public interface ManagerDao {
      * It creates a new record and the corresponding object
      * @return ManagerImpl
      */
-    void create(Manager manager) throws SQLException;
+    void create(Manager manager) throws DAOException;
 
     /**
      * Gets the appropriate entries to the primary by key or null
      * @param key
      * @return ManagerImpl
      */
-    Manager read(Long key) throws SQLException;
+    Manager read(Long key) throws DAOException;
 
     /**
      * It saves the state of the object group in the database
      * @param manager
      */
-    int update(Manager manager) throws SQLException;
+    int update(Manager manager) throws DAOException;
 
     /**
      * Removes the entry of the object from the database
      * @param manager
      */
-    void delete(Manager manager) throws SQLException;
+    void delete(Manager manager) throws DAOException;
 
     /**
      * Returns a list of all the relevant records in the database
      * @return List of Managers
      * @throws SQLException
      */
-    List<Manager> getAll() throws SQLException;
+    List<Manager> getAll() throws DAOException;
 }
