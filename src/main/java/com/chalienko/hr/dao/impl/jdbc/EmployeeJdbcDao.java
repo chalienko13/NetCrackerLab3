@@ -1,9 +1,7 @@
 package com.chalienko.hr.dao.impl.jdbc;
 
 import com.chalienko.hr.dao.EmployeeDao;
-import com.chalienko.hr.model.Customer;
 import com.chalienko.hr.model.Employee;
-import com.chalienko.hr.model.impl.real.CustomerImpl;
 import com.chalienko.hr.model.impl.real.EmployeeImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

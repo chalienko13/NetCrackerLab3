@@ -1,8 +1,9 @@
 package com.chalienko.hr;
 
-import com.chalienko.hr.dao.ProjectDao;
-import com.chalienko.hr.dao.impl.oracle.DaoOracleFactory;
 import com.chalienko.hr.model.Project;
+import com.chalienko.hr.service.ProjectService;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.SQLException;
 
@@ -11,7 +12,9 @@ import java.sql.SQLException;
  */
 public class Main {
     public static void main(String[] args) throws SQLException {
-        Project project = null;
+        ApplicationContext appContext = new ClassPathXmlApplicationContext("spring-jdbc.xml");
+        ProjectService projectService= (ProjectService) appContext.getBean("projectServiceImpl");
+        Project project = projectService.getProject(1L);
         System.out.println(project);
 
     }

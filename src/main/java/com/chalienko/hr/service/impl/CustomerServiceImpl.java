@@ -4,7 +4,6 @@ import com.chalienko.hr.dao.CustomerDao;
 import com.chalienko.hr.model.Customer;
 import com.chalienko.hr.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

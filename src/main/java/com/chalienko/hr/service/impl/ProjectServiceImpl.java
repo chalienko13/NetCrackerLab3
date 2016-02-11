@@ -4,8 +4,6 @@ import com.chalienko.hr.dao.ProjectDao;
 import com.chalienko.hr.model.Project;
 import com.chalienko.hr.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 /**

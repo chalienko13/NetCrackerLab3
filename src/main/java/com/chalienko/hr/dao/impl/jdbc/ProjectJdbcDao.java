@@ -1,12 +1,9 @@
 package com.chalienko.hr.dao.impl.jdbc;
 
 import com.chalienko.hr.dao.ProjectDao;
-import com.chalienko.hr.model.Manager;
 import com.chalienko.hr.model.Project;
 import com.chalienko.hr.model.impl.proxy.CustomerProxy;
 import com.chalienko.hr.model.impl.proxy.ManagerProxy;
-import com.chalienko.hr.model.impl.proxy.ProjectProxy;
-import com.chalienko.hr.model.impl.real.ManagerImpl;
 import com.chalienko.hr.model.impl.real.ProjectImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

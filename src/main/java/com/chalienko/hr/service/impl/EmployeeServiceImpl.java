@@ -1,11 +1,9 @@
 package com.chalienko.hr.service.impl;
 
 import com.chalienko.hr.dao.EmployeeDao;
-import com.chalienko.hr.model.Customer;
 import com.chalienko.hr.model.Employee;
 import com.chalienko.hr.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

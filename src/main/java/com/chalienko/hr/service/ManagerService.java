@@ -1,6 +1,5 @@
 package com.chalienko.hr.service;
 
-import com.chalienko.hr.model.Customer;
 import com.chalienko.hr.model.Manager;
 import org.springframework.stereotype.Service;
 
