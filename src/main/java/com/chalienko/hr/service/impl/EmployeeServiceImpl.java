@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * Created by Chalienko on 11.02.2016.
  */
-@Service
 public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private EmployeeDao employeeDao;
