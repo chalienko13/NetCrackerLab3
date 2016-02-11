@@ -18,31 +18,31 @@ public interface CustomerDao {
      * It creates a new record and the corresponding object
      * @return CustomerImpl
      */
-    void create(Customer customer) throws DAOException;
+    void save(Customer customer);
 
     /**
      * Gets the appropriate entries to the primary by key or null
      * @param key
      * @return CustomerImpl
      */
-    Customer getByID(Long key) throws DAOException;
+    Customer getCustomerByID(Long key);
 
     /**
      * It saves the state of the object group in the database
      * @param customer
      */
-    int update(Customer customer) throws DAOException;
+    int update(Customer customer);
 
     /**
      * Removes the entry of the object from the database
      * @param customer
      */
-    void delete(Customer customer) throws DAOException;
+    void delete(Customer customer);
 
     /**
      * Returns a list of all the relevant records in the database
      * @return List of Customs
      * @throws SQLException
      */
-    List<Customer> getAll() throws DAOException;
+    List<Customer> getAll();
 }
