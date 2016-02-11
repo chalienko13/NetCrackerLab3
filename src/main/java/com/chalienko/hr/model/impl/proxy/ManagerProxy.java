@@ -1,12 +1,13 @@
 package com.chalienko.hr.model.impl.proxy;
 
-import com.chalienko.hr.dao.ManagerDao;
-import com.chalienko.hr.dao.impl.oracle.DaoOracleFactory;
 import com.chalienko.hr.model.Manager;
 import com.chalienko.hr.model.Project;
+import com.chalienko.hr.model.impl.real.EmployeeImpl;
 import com.chalienko.hr.model.impl.real.ManagerImpl;
-
-import java.sql.SQLException;
+import com.chalienko.hr.service.EmployeeService;
+import com.chalienko.hr.service.ManagerService;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 /**
@@ -74,13 +75,8 @@ public class ManagerProxy implements Manager {
     }
 
     private ManagerImpl downloadManager(){
-        ManagerImpl manager = null;
-        try(DaoOracleFactory daoOracleFactory = new DaoOracleFactory()) {
-            ManagerDao managerDao = daoOracleFactory.getManagerDao();
-            manager = (ManagerImpl) managerDao.read(getId());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return  manager;
+        ApplicationContext appContext = new ClassPathXmlApplicationContext("spring-jdbc.xml");
+        ManagerService managerService = (ManagerService) appContext.getBean("managerServiceImpl");
+        return (ManagerImpl) managerService.getManager(getId());
     }
 }

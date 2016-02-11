@@ -1,11 +1,10 @@
 package com.chalienko.hr.model.impl.proxy;
 
-import com.chalienko.hr.dao.CustomerDao;
-import com.chalienko.hr.dao.impl.oracle.DaoOracleFactory;
 import com.chalienko.hr.model.Customer;
 import com.chalienko.hr.model.impl.real.CustomerImpl;
-
-import java.sql.SQLException;
+import com.chalienko.hr.service.CustomerService;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * Created by Chalienko on 01.02.2016.
@@ -45,13 +44,8 @@ public class CustomerProxy implements Customer {
     }
 
     private CustomerImpl downloadCustomer(){
-        CustomerImpl customer = null;
-        try(DaoOracleFactory daoOracleFactory = new DaoOracleFactory()) {
-            CustomerDao customerDao = daoOracleFactory.getCustomDao();
-            customer = (CustomerImpl) customerDao.getByID(getId());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return  customer;
+        ApplicationContext appContext = new ClassPathXmlApplicationContext("spring-jdbc.xml");
+        CustomerService customerService = (CustomerService) appContext.getBean("customerServiceImpl");
+        return (CustomerImpl) customerService.getCustomer(getId());
     }
 }
